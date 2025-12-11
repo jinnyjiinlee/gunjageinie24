@@ -17,89 +17,77 @@ export default async function Image() {
           height: '100%',
           width: '100%',
           display: 'flex',
-          flexDirection: 'column',
           backgroundColor: '#0A0A0A',
           position: 'relative',
           overflow: 'hidden',
         }}
       >
-        {/* 배경 네온 효과 */}
+        {/* 배경 글로우 효과들 */}
         <div
           style={{
             position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 900,
-            height: 900,
+            top: -100,
+            right: -100,
+            width: 500,
+            height: 500,
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(0,255,136,0.15) 0%, transparent 50%)',
+            background: 'radial-gradient(circle, rgba(0,255,136,0.3) 0%, transparent 70%)',
+            filter: 'blur(60px)',
           }}
         />
-
-        {/* 상단 장식 라인 */}
         <div
           style={{
             position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 6,
-            background: 'linear-gradient(90deg, #00FF88 0%, #00CC6A 50%, #00FF88 100%)',
+            bottom: -150,
+            left: -100,
+            width: 400,
+            height: 400,
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(0,255,136,0.2) 0%, transparent 70%)',
+            filter: 'blur(80px)',
           }}
         />
 
-        {/* 메인 컨텐츠 */}
+        {/* 좌측 메인 콘텐츠 */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
             justifyContent: 'center',
-            flex: 1,
-            padding: '40px 60px',
-            textAlign: 'center',
+            padding: '60px 70px',
+            width: '60%',
+            position: 'relative',
+            zIndex: 10,
           }}
         >
-          {/* 이벤트 배지 */}
+          {/* 프로모션 배지 */}
           <div
             style={{
               display: 'flex',
-              alignItems: 'center',
-              gap: 16,
-              marginBottom: 32,
+              marginBottom: 30,
             }}
           >
             <div
               style={{
-                background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%)',
+                background: 'linear-gradient(135deg, #FF4757 0%, #FF6B81 100%)',
                 color: '#fff',
-                padding: '12px 28px',
+                padding: '14px 28px',
                 borderRadius: 50,
-                fontSize: 22,
+                fontSize: 20,
                 fontWeight: 800,
-                letterSpacing: '-0.5px',
               }}
             >
-              2차 프로모션 최대 36% 할인
+              🔥 2차 프로모션 최대 36% 할인
             </div>
           </div>
 
-          {/* 메인 타이틀 */}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              marginBottom: 28,
-            }}
-          >
+          {/* 로고 타이틀 */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             <div
               style={{
-                fontSize: 48,
-                fontWeight: 700,
-                color: '#FFFFFF',
-                marginBottom: 8,
+                fontSize: 42,
+                fontWeight: 600,
+                color: '#888888',
                 letterSpacing: '-1px',
               }}
             >
@@ -107,137 +95,146 @@ export default async function Image() {
             </div>
             <div
               style={{
-                fontSize: 120,
+                fontSize: 100,
                 fontWeight: 900,
                 color: '#00FF88',
-                lineHeight: 1,
                 letterSpacing: '-4px',
-                textShadow: '0 0 60px rgba(0,255,136,0.5)',
+                lineHeight: 1,
               }}
             >
               지니24
             </div>
             <div
               style={{
-                fontSize: 36,
+                fontSize: 28,
                 fontWeight: 500,
-                color: '#666666',
+                color: '#444444',
+                letterSpacing: '6px',
                 marginTop: 8,
-                letterSpacing: '8px',
               }}
             >
               STUDYCAFE
             </div>
           </div>
 
-          {/* 서브 타이틀 */}
+          {/* 태그라인 */}
           <div
             style={{
-              fontSize: 28,
+              fontSize: 26,
               color: '#AAAAAA',
-              marginBottom: 40,
-              fontWeight: 500,
+              marginTop: 32,
+              lineHeight: 1.5,
             }}
           >
-            집중이 필요한 당신을 위한 몰입의 공간
+            집중이 필요한 당신을 위한
+            <br />
+            <span style={{ color: '#FFFFFF', fontWeight: 600 }}>몰입의 공간</span>
           </div>
+        </div>
 
-          {/* 특징 태그들 */}
+        {/* 우측 카드 영역 */}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '40%',
+            padding: '40px',
+            position: 'relative',
+            zIndex: 10,
+          }}
+        >
+          {/* 무료 체험 카드 */}
           <div
             style={{
               display: 'flex',
-              gap: 20,
+              flexDirection: 'column',
+              alignItems: 'center',
+              background: 'linear-gradient(145deg, rgba(0,255,136,0.15) 0%, rgba(0,255,136,0.05) 100%)',
+              border: '2px solid rgba(0,255,136,0.4)',
+              borderRadius: 28,
+              padding: '36px 48px',
+              marginBottom: 28,
             }}
           >
+            <div style={{ fontSize: 18, color: '#00FF88', marginBottom: 8, fontWeight: 600 }}>
+              처음 오시는 분
+            </div>
+            <div style={{ fontSize: 56, fontWeight: 900, color: '#FFFFFF', lineHeight: 1 }}>
+              4시간
+            </div>
+            <div style={{ fontSize: 32, fontWeight: 700, color: '#00FF88', marginTop: 4 }}>
+              무료 체험
+            </div>
+          </div>
+
+          {/* 특징 태그들 */}
+          <div style={{ display: 'flex', gap: 12 }}>
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                background: 'rgba(0,255,136,0.1)',
-                border: '2px solid rgba(0,255,136,0.3)',
-                borderRadius: 50,
-                padding: '14px 28px',
-                fontSize: 20,
-                color: '#00FF88',
-                fontWeight: 600,
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                borderRadius: 20,
+                padding: '12px 20px',
+                fontSize: 16,
+                color: '#CCCCCC',
+                fontWeight: 500,
               }}
             >
-              <span style={{ fontSize: 24 }}>⏰</span> 24시간 운영
+              ⏰ 24시간
             </div>
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                background: 'rgba(255,255,255,0.05)',
-                border: '2px solid rgba(255,255,255,0.15)',
-                borderRadius: 50,
-                padding: '14px 28px',
-                fontSize: 20,
-                color: '#FFFFFF',
-                fontWeight: 600,
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                borderRadius: 20,
+                padding: '12px 20px',
+                fontSize: 16,
+                color: '#CCCCCC',
+                fontWeight: 500,
               }}
             >
-              <span style={{ fontSize: 24 }}>🎁</span> 4시간 무료체험
+              🪑 시디즈
             </div>
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                background: 'rgba(255,255,255,0.05)',
-                border: '2px solid rgba(255,255,255,0.15)',
-                borderRadius: 50,
-                padding: '14px 28px',
-                fontSize: 20,
-                color: '#FFFFFF',
-                fontWeight: 600,
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                borderRadius: 20,
+                padding: '12px 20px',
+                fontSize: 16,
+                color: '#CCCCCC',
+                fontWeight: 500,
               }}
             >
-              <span style={{ fontSize: 24 }}>🪑</span> 시디즈 의자
+              📐 100cm
             </div>
           </div>
         </div>
 
-        {/* 하단 정보 */}
+        {/* 하단 바 */}
         <div
           style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 56,
+            background: 'linear-gradient(90deg, rgba(0,255,136,0.1) 0%, rgba(0,0,0,0.5) 100%)',
+            borderTop: '1px solid rgba(0,255,136,0.2)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            gap: 40,
-            padding: '24px 60px',
-            background: 'rgba(0,255,136,0.05)',
-            borderTop: '1px solid rgba(0,255,136,0.2)',
+            justifyContent: 'space-between',
+            padding: '0 70px',
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10,
-              color: '#888888',
-              fontSize: 20,
-            }}
-          >
-            <span style={{ color: '#00FF88', fontSize: 24 }}>📍</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#777777', fontSize: 18 }}>
+            <span style={{ color: '#00FF88' }}>📍</span>
             군자역 5번출구 도보 3분
           </div>
-          <div
-            style={{
-              width: 2,
-              height: 24,
-              background: 'rgba(255,255,255,0.2)',
-            }}
-          />
-          <div
-            style={{
-              color: '#666666',
-              fontSize: 18,
-            }}
-          >
-            서울 광진구 능동로 330 5층
+          <div style={{ color: '#555555', fontSize: 16 }}>
+            gunjageinie24.vercel.app
           </div>
         </div>
       </div>
