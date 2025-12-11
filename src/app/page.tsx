@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import html2canvas from 'html2canvas';
 
 // 포스터 데이터 - 실제 포스터 스타일 미리보기
 const posterSlides = [
@@ -58,23 +57,99 @@ export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const couponRef = useRef<HTMLDivElement>(null);
 
-  // 쿠폰 이미지 다운로드 함수
+  // 쿠폰 이미지 다운로드 함수 (Canvas API 사용)
   const downloadCoupon = async () => {
-    if (!couponRef.current) return;
-
     try {
-      const canvas = await html2canvas(couponRef.current, {
-        backgroundColor: '#0A0A0A',
-        scale: 2, // 고해상도
-      });
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('Canvas not supported');
+
+      // 캔버스 크기 설정
+      canvas.width = 800;
+      canvas.height = 500;
+
+      // 배경 그라데이션
+      const gradient = ctx.createLinearGradient(0, 0, 800, 0);
+      gradient.addColorStop(0, '#FFD700');
+      gradient.addColorStop(1, '#FFA500');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 800, 500);
+
+      // 왼쪽 구멍
+      ctx.fillStyle = '#0A0A0A';
+      ctx.beginPath();
+      ctx.arc(0, 250, 30, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 오른쪽 구멍
+      ctx.beginPath();
+      ctx.arc(800, 250, 30, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 내부 점선 테두리 박스
+      ctx.strokeStyle = 'rgba(10, 10, 10, 0.3)';
+      ctx.lineWidth = 4;
+      ctx.setLineDash([10, 8]);
+      ctx.strokeRect(50, 50, 700, 400);
+      ctx.setLineDash([]);
+
+      // 텍스트 설정
+      ctx.fillStyle = '#0A0A0A';
+      ctx.textAlign = 'center';
+
+      // 상호명
+      ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.fillText('군자역 지니24 스터디카페', 400, 110);
+
+      // 메인 타이틀
+      ctx.font = 'bold 52px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.fillText('충전권 보너스 쿠폰', 400, 180);
+
+      // 보너스 박스 배경
+      ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
+      ctx.fillRect(150, 210, 500, 120);
+
+      // 보너스 내용
+      ctx.fillStyle = '#0A0A0A';
+      ctx.font = 'bold 32px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.fillText('200시간 → +20시간 추가', 400, 265);
+      ctx.fillText('300시간 → +60시간 추가 🔥', 400, 310);
+
+      // 안내 문구
+      ctx.font = '22px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.fillStyle = 'rgba(10, 10, 10, 0.8)';
+      ctx.fillText('홈페이지 방문자 한정 혜택', 400, 380);
+
+      ctx.font = '18px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.fillStyle = 'rgba(10, 10, 10, 0.6)';
+      ctx.fillText('네이버 톡톡으로 이 쿠폰을 보내주세요!', 400, 420);
+
+      // 이미지 다운로드
+      const dataUrl = canvas.toDataURL('image/png');
+
+      // 모바일 대응: Blob으로 변환 후 다운로드
+      const byteString = atob(dataUrl.split(',')[1]);
+      const mimeString = dataUrl.split(',')[0].split(':')[1].split(';')[0];
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      const blob = new Blob([ab], { type: mimeString });
+      const blobUrl = URL.createObjectURL(blob);
 
       const link = document.createElement('a');
+      link.href = blobUrl;
       link.download = '지니24_충전권_쿠폰.png';
-      link.href = canvas.toDataURL('image/png');
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl);
+
     } catch (error) {
       console.error('쿠폰 다운로드 실패:', error);
-      alert('쿠폰 다운로드에 실패했습니다. 캡쳐해서 사용해주세요!');
+      // 실패 시 쿠폰 이미지를 길게 누르라고 안내
+      alert('쿠폰 이미지를 길게 눌러서 저장해주세요!');
     }
   };
 
@@ -726,7 +801,7 @@ export default function Home() {
                     <span>📥</span> 쿠폰 다운로드
                   </button>
                   <a
-                    href="https://talk.naver.com/ct/wc4u8w"
+                    href="https://talk.naver.com/ct/wh8csvl?frm=mnmb&frm=nmb_detail#nafullscreen"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 bg-[#03C75A] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full font-bold text-xs sm:text-sm hover:shadow-[0_0_20px_rgba(3,199,90,0.5)] transition"
