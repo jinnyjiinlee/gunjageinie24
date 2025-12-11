@@ -132,7 +132,7 @@ export default function Home() {
               href="https://map.naver.com/p/entry/place/2024921054?lng=127.0807503&lat=37.5589534&placePath=/booking"
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-[#00FF88] text-black px-8 sm:px-10 py-4 sm:py-5 rounded-full font-bold text-base sm:text-lg hover:shadow-[0_0_40px_rgba(0,255,136,0.6)] transition-all duration-300 hover:scale-105 shimmer"
+              className="group bg-[#00FF88] text-[#0A0A0A] px-8 sm:px-10 py-4 sm:py-5 rounded-full font-bold text-base sm:text-lg hover:shadow-[0_0_40px_rgba(0,255,136,0.6)] transition-all duration-300 hover:scale-105"
             >
               지금 바로 예약하기
               <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
@@ -501,39 +501,40 @@ export default function Home() {
           {/* 포스터 그리드 */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {[
-              { id: 1, title: '2차 프로모션', category: '이벤트', file: 'promo-2nd' },
-              { id: 2, title: '겨울 이벤트', category: '이벤트', file: 'winter-event' },
-              { id: 3, title: '4시간 무료체험', category: '체험권', file: 'free-trial' },
-              { id: 4, title: '시설 안내', category: '안내', file: 'facility' },
-              { id: 5, title: '가격표', category: '안내', file: 'price' },
-              { id: 6, title: '좌석 안내', category: '안내', file: 'seats' },
+              { id: 1, title: '2차 프로모션', category: '이벤트', file: 'promo-2nd', emoji: '🎉' },
+              { id: 2, title: '겨울 이벤트', category: '이벤트', file: 'winter-event', emoji: '❄️' },
+              { id: 3, title: '4시간 무료체험', category: '체험권', file: 'free-trial', emoji: '🎁' },
+              { id: 4, title: '시설 안내', category: '안내', file: 'facility', emoji: '🏢' },
+              { id: 5, title: '가격표', category: '안내', file: 'price', emoji: '💰' },
+              { id: 6, title: '좌석 안내', category: '안내', file: 'seats', emoji: '🪑' },
             ].map((poster) => (
               <div
                 key={poster.id}
-                className="group relative bg-[#1A1A1A] border border-white/10 rounded-2xl overflow-hidden hover:border-[#00FF88]/50 transition-all duration-300 hover-lift"
+                className="group relative bg-[#1A1A1A] border border-white/10 rounded-2xl overflow-hidden hover:border-[#00FF88]/50 transition-all duration-300"
               >
                 {/* 포스터 이미지 영역 */}
-                <div className="aspect-[3/4] bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] flex items-center justify-center relative overflow-hidden">
+                <div className="aspect-[3/4] bg-gradient-to-br from-[#222222] to-[#111111] flex items-center justify-center relative">
                   <div className="text-center p-4">
-                    <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">📄</div>
-                    <p className="text-sm text-gray-500">{poster.title}</p>
+                    <div className="text-5xl mb-4">{poster.emoji}</div>
+                    <p className="text-sm text-gray-400 font-medium">{poster.title}</p>
+                    <p className="text-xs text-gray-600 mt-1">포스터 준비중</p>
                   </div>
                   {/* 호버 오버레이 */}
-                  <div className="absolute inset-0 bg-[#00FF88]/0 group-hover:bg-[#00FF88]/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    <div className="flex gap-2">
-                      <button className="bg-[#00FF88] text-black px-3 py-2 rounded-lg text-xs font-bold hover:scale-105 transition-transform">
+                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <div className="flex gap-3">
+                      <button className="bg-[#00FF88] text-[#0A0A0A] px-4 py-2.5 rounded-lg text-sm font-bold hover:scale-105 transition-transform">
                         JPG
                       </button>
-                      <button className="bg-white/20 text-white px-3 py-2 rounded-lg text-xs font-bold hover:scale-105 transition-transform backdrop-blur-sm">
+                      <button className="bg-white/20 text-white px-4 py-2.5 rounded-lg text-sm font-bold hover:scale-105 transition-transform border border-white/30">
                         PDF
                       </button>
                     </div>
                   </div>
                 </div>
                 {/* 포스터 정보 */}
-                <div className="p-4">
-                  <div className="text-xs text-[#00FF88] mb-1">{poster.category}</div>
-                  <h4 className="font-medium text-sm">{poster.title}</h4>
+                <div className="p-4 border-t border-white/5">
+                  <div className="text-xs text-[#00FF88] mb-1 font-medium">{poster.category}</div>
+                  <h4 className="font-semibold text-sm text-white">{poster.title}</h4>
                 </div>
               </div>
             ))}
