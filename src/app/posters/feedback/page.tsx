@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import html2canvas from 'html2canvas';
 
@@ -47,7 +47,7 @@ const designStyles: DesignStyle[] = [
   { id: 5, name: '미니멀 블랙', bgColor: '#FFFFFF', headerBg: '#000000', headerText: '#FFFFFF', cardBg: '#F8F8F8', textColor: '#000000', accentColor: '#000000', successColor: '#16A34A' },
 ];
 
-export default function FeedbackPosterPage() {
+function FeedbackPosterContent() {
   const posterRefs = useRef<(HTMLDivElement | null)[]>([]);
   const searchParams = useSearchParams();
   const isPreview = searchParams.get('preview') === '1';
@@ -498,5 +498,13 @@ export default function FeedbackPosterPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function FeedbackPosterPage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: '100vh', background: '#E5E7EB' }} />}>
+      <FeedbackPosterContent />
+    </Suspense>
   );
 }

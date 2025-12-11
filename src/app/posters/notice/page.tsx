@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 // 디자인 스타일
@@ -24,7 +24,7 @@ const designStyles: DesignStyle[] = [
   { id: 5, name: '모던 그레이', bgColor: '#F3F4F6', headerBg: '#374151', headerText: '#FFFFFF', cardBg: '#FFFFFF', textColor: '#1F2937', accentColor: '#6B7280', warningColor: '#EF4444' },
 ];
 
-export default function NoticePosterPage() {
+function NoticePosterContent() {
   const posterRefs = useRef<(HTMLDivElement | null)[]>([]);
   const searchParams = useSearchParams();
   const isPreview = searchParams.get('preview') === '1';
@@ -335,5 +335,13 @@ export default function NoticePosterPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function NoticePosterPage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: '100vh', background: '#E5E7EB' }} />}>
+      <NoticePosterContent />
+    </Suspense>
   );
 }

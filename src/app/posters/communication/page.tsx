@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import html2canvas from 'html2canvas';
 
@@ -22,7 +22,7 @@ const designStyles: DesignStyle[] = [
   { id: 3, name: '민트 프레시', bgColor: '#F0FDF4', headerBg: '#059669', headerText: '#FFFFFF', cardBg: '#FFFFFF', textColor: '#064E3B', accentColor: '#10B981' },
 ];
 
-export default function CommunicationPosterPage() {
+function CommunicationPosterContent() {
   const posterRefs = useRef<(HTMLDivElement | null)[]>([]);
   const searchParams = useSearchParams();
   const isPreview = searchParams.get('preview') === '1';
@@ -423,5 +423,13 @@ export default function CommunicationPosterPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CommunicationPosterPage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: '100vh', background: '#E5E7EB' }} />}>
+      <CommunicationPosterContent />
+    </Suspense>
   );
 }

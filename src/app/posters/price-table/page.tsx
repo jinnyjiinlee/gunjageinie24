@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 // 가격 데이터 - 2차 이벤트
@@ -51,7 +51,7 @@ const designStyles: DesignStyle[] = [
   { id: 10, name: '스카이 블루', bgColor: '#F0F9FF', headerBg: '#0284C7', headerText: '#FFFFFF', cardBg: '#FFFFFF', textColor: '#075985', accentColor: '#0EA5E9', badgeColor: '#E11D48' },
 ];
 
-export default function PriceTable2ndPage() {
+function PriceTable2ndContent() {
   const posterRefs = useRef<(HTMLDivElement | null)[]>([]);
   const searchParams = useSearchParams();
   const isPreview = searchParams.get('preview') === '1';
@@ -618,5 +618,13 @@ export default function PriceTable2ndPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PriceTable2ndPage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: '100vh', background: '#E5E7EB' }} />}>
+      <PriceTable2ndContent />
+    </Suspense>
   );
 }
