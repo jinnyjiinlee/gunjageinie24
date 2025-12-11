@@ -2,9 +2,59 @@
 
 import { useState, useEffect } from 'react';
 
+// 포스터 데이터 - 실제 포스터 스타일 미리보기
+const posterSlides = [
+  {
+    id: 1,
+    title: '2차 프로모션',
+    subtitle: '~12/21까지',
+    highlight: '시간권 50% 할인',
+    category: '이벤트',
+    bgGradient: 'from-[#FF6B6B] to-[#FF8E53]',
+    href: '/posters/promo-2nd'
+  },
+  {
+    id: 2,
+    title: '가격표',
+    subtitle: '2차 이벤트 특가',
+    highlight: '1시간 1,000원~',
+    category: '안내',
+    bgGradient: 'from-[#00FF88] to-[#00CC6A]',
+    href: '/posters/price-table'
+  },
+  {
+    id: 3,
+    title: '공지사항',
+    subtitle: '이용 안내',
+    highlight: '퇴실처리 필수',
+    category: '안내',
+    bgGradient: 'from-[#3B82F6] to-[#1D4ED8]',
+    href: '/posters/notice'
+  },
+  {
+    id: 4,
+    title: '소통 공간',
+    subtitle: '의견 환영',
+    highlight: '휴게실 게시판',
+    category: '소통',
+    bgGradient: 'from-[#8B5CF6] to-[#6D28D9]',
+    href: '/posters/communication'
+  },
+  {
+    id: 5,
+    title: '피드백 반영',
+    subtitle: '여러분의 의견',
+    highlight: '적극 반영중',
+    category: '피드백',
+    bgGradient: 'from-[#EC4899] to-[#BE185D]',
+    href: '/posters/feedback'
+  },
+];
+
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [daysLeft, setDaysLeft] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const eventEndDate = new Date('2025-12-21T23:59:59');
@@ -12,6 +62,14 @@ export default function Home() {
     const timeDiff = eventEndDate.getTime() - today.getTime();
     const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
     setDaysLeft(days > 0 ? days : 0);
+  }, []);
+
+  // 포스터 자동 슬라이드
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % posterSlides.length);
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -116,8 +174,8 @@ export default function Home() {
 
           {/* Main Title */}
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-8">
-            <span className="text-white animate-fade-in-up">성인 자기계발러를 위한</span><br />
-            <span className="neon-text text-5xl sm:text-6xl md:text-8xl animate-text-glow">최적의 공간</span>
+            <span className="text-white animate-fade-in-up">집중이 필요한 당신을 위한</span><br />
+            <span className="neon-text text-5xl sm:text-6xl md:text-8xl animate-text-glow">몰입의 공간</span>
           </h1>
 
           {/* Subtitle */}
@@ -160,9 +218,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Story Section */}
+      {/* Story Section - 웹에서 2열 그리드 */}
       <section id="story" className="py-24 bg-[#111111]">
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               <span className="neon-text">나의 이야기</span>
@@ -170,68 +228,74 @@ export default function Home() {
             <p className="text-gray-400">왜 스터디카페를 직접 만들게 되었는지</p>
           </div>
 
-          <div className="space-y-8 text-gray-300 leading-relaxed">
+          {/* 2열 그리드 레이아웃 */}
+          <div className="grid md:grid-cols-2 gap-6 text-gray-300 leading-relaxed">
             {/* 시작 */}
-            <div className="bg-[#1A1A1A] border border-white/10 rounded-3xl p-8 md:p-10">
-              <div className="text-[#00FF88] text-sm font-medium mb-4">Chapter 1</div>
-              <h3 className="text-xl md:text-2xl font-bold mb-4 text-white">퇴근 후, 갈 곳이 없었다</h3>
-              <p className="mb-4">
-                IT 업계에서 일하면서 늘 느꼈습니다. 퇴근 후에도 공부하고 싶은데,
-                집에서는 집중이 안 되고, 카페는 시끄럽고, 기존 스터디카페는
-                학생들 위주라 분위기가 맞지 않았습니다.
-              </p>
-              <p>
-                <span className="text-white font-medium">"성인이 퇴근 후에도 제대로 집중할 수 있는 공간이 왜 없을까?"</span><br />
-                이 질문이 모든 시작이었습니다.
+            <div className="bg-[#1A1A1A] border border-white/10 rounded-3xl p-6 md:p-8 hover:border-[#00FF88]/30 transition">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-2xl">🤔</span>
+                <div className="text-[#00FF88] text-sm font-medium">Chapter 1</div>
+              </div>
+              <h3 className="text-lg md:text-xl font-bold mb-3 text-white">퇴근 후, 갈 곳이 없었다</h3>
+              <p className="text-sm md:text-base">
+                집에서는 집중이 안 되고, 카페는 시끄럽고, 기존 스터디카페는 분위기가 맞지 않았습니다.
+                <span className="block mt-2 text-white font-medium">"제대로 집중할 수 있는 공간이 왜 없을까?"</span>
               </p>
             </div>
 
             {/* 깨달음 */}
-            <div className="bg-[#1A1A1A] border border-white/10 rounded-3xl p-8 md:p-10">
-              <div className="text-[#00FF88] text-sm font-medium mb-4">Chapter 2</div>
-              <h3 className="text-xl md:text-2xl font-bold mb-4 text-white">환경이 곧 생산성이다</h3>
-              <p className="mb-4">
-                개발자로 일하면서 깨달은 것이 있습니다.
-                의자 하나, 책상 너비 10cm, 조명 밝기 차이가
-                하루 집중력을 완전히 바꿔놓는다는 것을요.
-              </p>
-              <p>
-                그래서 직접 만들기로 했습니다.
-                <span className="text-white font-medium">내가 가고 싶은 스터디카페</span>를.
-                성인 자기계발러들이 퇴근 후에 와서 몰입할 수 있는 공간을.
+            <div className="bg-[#1A1A1A] border border-white/10 rounded-3xl p-6 md:p-8 hover:border-[#00FF88]/30 transition">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-2xl">💡</span>
+                <div className="text-[#00FF88] text-sm font-medium">Chapter 2</div>
+              </div>
+              <h3 className="text-lg md:text-xl font-bold mb-3 text-white">환경이 곧 생산성이다</h3>
+              <p className="text-sm md:text-base">
+                의자 하나, 책상 너비 10cm가 하루 집중력을 완전히 바꿔놓습니다.
+                그래서 <span className="text-white font-medium">내가 가고 싶은 스터디카페</span>를 직접 만들기로 했습니다.
               </p>
             </div>
 
-            {/* 철학 */}
-            <div className="bg-[#1A1A1A] border border-white/10 rounded-3xl p-8 md:p-10">
-              <div className="text-[#00FF88] text-sm font-medium mb-4">Chapter 3</div>
-              <h3 className="text-xl md:text-2xl font-bold mb-4 text-white">디테일에 집착하다</h3>
-              <div className="space-y-4">
-                <p>
-                  <span className="text-[#00FF88]">✓</span> 의자는 서울대에서 검증된 시디즈를 전 좌석에 배치했습니다.
-                </p>
-                <p>
-                  <span className="text-[#00FF88]">✓</span> 책상은 100cm 이상. 교재, 노트북, 태블릿을 동시에 펼쳐도 답답하지 않게.
-                </p>
-                <p>
-                  <span className="text-[#00FF88]">✓</span> 화장실은 내부에. 집중 흐름을 깨지 않도록.
-                </p>
-                <p>
-                  <span className="text-[#00FF88]">✓</span> 노트북존은 학습존과 분리. 키보드 소리로 방해받지 않게.
-                </p>
+            {/* 철학 - 넓게 */}
+            <div className="md:col-span-2 bg-[#1A1A1A] border border-white/10 rounded-3xl p-6 md:p-8 hover:border-[#00FF88]/30 transition">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-2xl">✨</span>
+                <div className="text-[#00FF88] text-sm font-medium">Chapter 3</div>
+              </div>
+              <h3 className="text-lg md:text-xl font-bold mb-4 text-white">디테일에 집착하다</h3>
+              <div className="grid md:grid-cols-2 gap-3">
+                <div className="flex items-start gap-3 bg-[#0A0A0A] rounded-xl p-4">
+                  <span className="text-[#00FF88] text-lg">✓</span>
+                  <p className="text-sm">학습존은 <strong className="text-white">시디즈 의자</strong> · 노트북존은 편안한 오피스 의자</p>
+                </div>
+                <div className="flex items-start gap-3 bg-[#0A0A0A] rounded-xl p-4">
+                  <span className="text-[#00FF88] text-lg">✓</span>
+                  <p className="text-sm">책상은 <strong className="text-white">100cm 이상</strong>. 교재, 노트북, 태블릿 동시에</p>
+                </div>
+                <div className="flex items-start gap-3 bg-[#0A0A0A] rounded-xl p-4">
+                  <span className="text-[#00FF88] text-lg">✓</span>
+                  <p className="text-sm">화장실은 <strong className="text-white">내부에</strong>. 집중 흐름을 깨지 않도록</p>
+                </div>
+                <div className="flex items-start gap-3 bg-[#0A0A0A] rounded-xl p-4">
+                  <span className="text-[#00FF88] text-lg">✓</span>
+                  <p className="text-sm"><strong className="text-white">빈백존</strong>에서 몰입하다가 잠시 휴식</p>
+                </div>
               </div>
             </div>
 
-            {/* 결과 */}
-            <div className="bg-gradient-to-r from-[#00FF88]/10 to-transparent border border-[#00FF88]/30 rounded-3xl p-8 md:p-10">
-              <div className="text-[#00FF88] text-sm font-medium mb-4">현재</div>
-              <h3 className="text-xl md:text-2xl font-bold mb-4 text-white">성인 자기계발러들의 아지트</h3>
-              <p className="mb-4">
-                이제 군자 지니24에는 직장인, 프리랜서, 이직 준비생, 자격증 공부하시는 분들이
-                많이 찾아오십니다. 자연스럽게 성숙한 분위기가 형성되어
-                학생분들도 더 집중하게 됩니다.
+            {/* 결과 - 넓게 */}
+            <div className="md:col-span-2 bg-gradient-to-r from-[#00FF88]/10 to-transparent border border-[#00FF88]/30 rounded-3xl p-6 md:p-8">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-2xl">🎯</span>
+                <div className="text-[#00FF88] text-sm font-medium">현재</div>
+              </div>
+              <h3 className="text-lg md:text-xl font-bold mb-3 text-white">모든 자기계발러들의 아지트</h3>
+              <p className="text-sm md:text-base mb-4">
+                직장인, 프리랜서, 이직 준비생, 자격증 공부하시는 분들뿐만 아니라
+                집중이 필요한 <span className="text-white font-medium">학생분들도</span> 함께합니다.
+                자연스럽게 성숙한 분위기가 형성되어 모두가 더 집중하게 됩니다.
               </p>
-              <p className="text-white font-medium">
+              <p className="text-white font-medium text-lg">
                 "여기는 다르다"는 말을 들을 때마다, 만들길 잘했다고 생각합니다.
               </p>
             </div>
@@ -242,23 +306,36 @@ export default function Home() {
       {/* About Section */}
       <section id="about" className="py-24 bg-[#0A0A0A]">
         <div className="max-w-6xl mx-auto px-4">
+          {/* 몰입 강조 배너 */}
+          <div className="bg-gradient-to-r from-[#00FF88]/20 to-transparent border border-[#00FF88]/30 rounded-3xl p-8 mb-16 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              여러분의 <span className="neon-text">몰입</span>은 저희가 책임질게요
+            </h2>
+            <p className="text-gray-300 text-lg mb-2">
+              <span className="text-white font-medium">몸만 오세요.</span> 집중할 수 있는 환경은 저희가 만들어 놨습니다.
+            </p>
+            <p className="text-gray-500 text-sm">
+              직장인 · 이직준비생 · 대학생 · 고시생 · 자격증 · 프리랜서 모두 환영합니다
+            </p>
+          </div>
+
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               왜 <span className="neon-text">군자 지니24</span>인가요?
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              IT 업계에서 일하며 깨달은 것은 환경이 곧 생산성이라는 사실이었습니다.
+              환경이 곧 생산성입니다.
               책상의 너비, 의자의 편안함, 조명과 동선까지 작은 요소들이 집중 지속시간을 크게 좌우합니다.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { icon: '🪑', title: '서울대 시디즈 의자', description: '전 좌석 서울대 시디즈 의자로 장시간 학습에도 허리가 안정적으로 받쳐집니다.' },
+              { icon: '🪑', title: '좌석별 맞춤 의자', description: '학습존은 서울대 시디즈 의자, 노트북존은 편안한 오피스 의자로 구성했습니다.' },
               { icon: '📐', title: '100cm+ 넓은 책상', description: '교재, 노트북, 태블릿을 동시에 펼쳐도 답답하지 않은 여유로운 공간.' },
+              { icon: '🛋️', title: '빈백존', description: '몰입하다가 잠시 쉬어가세요. 편안한 빈백에서 휴식 후 다시 집중!' },
               { icon: '🚽', title: '내부 화장실', description: '집중 흐름을 깨지 않는 동선. 늦은 밤에도 안전하고 편리하게.' },
               { icon: '🍬', title: '무료 간식 & 음료', description: '다양한 간식과 차 종류를 무료로 제공. 휴게실에서 당 충전하세요.' },
-              { icon: '🌬️', title: '매일 새벽 청소', description: '최신 공기청정기와 매일 새벽 청소로 항상 쾌적한 환경 유지.' },
               { icon: '🕐', title: '24시간 365일', description: '언제든 원할 때 공부할 수 있는 24시간 연중무휴 운영.' },
             ].map((feature, index) => (
               <div key={index} className="bg-[#1A1A1A] border border-white/10 rounded-2xl p-6 sm:p-8 text-center hover:border-[#00FF88]/50 transition group hover-lift tilt-card">
@@ -453,20 +530,24 @@ export default function Home() {
             </div>
 
             {/* 장기권 */}
-            <div className="bg-[#1A1A1A] border border-white/10 rounded-3xl p-8 relative">
-              <div className="absolute -top-3 right-4 bg-white/20 text-white text-xs px-3 py-1 rounded-full">
+            <div className="bg-[#1A1A1A] border-2 border-[#00FF88]/30 rounded-3xl p-8 relative">
+              <div className="absolute -top-3 right-4 bg-[#00FF88] text-[#0A0A0A] text-xs px-3 py-1 rounded-full font-bold">
                 최대 21% 할인
               </div>
               <h3 className="text-lg font-bold mb-6 text-center">장기권 (시간 충전권)</h3>
               <div className="space-y-4">
                 {[
-                  { time: '50시간', price: '70,000' },
-                  { time: '100시간', price: '130,000' },
-                  { time: '200시간', price: '240,000' },
+                  { time: '50시간', original: '70,000', sale: '55,000' },
+                  { time: '100시간', original: '130,000', sale: '95,000' },
+                  { time: '200시간', original: '240,000', sale: '185,000' },
+                  { time: '300시간', original: '340,000', sale: '275,000' },
                 ].map((item, index) => (
                   <div key={index} className="flex justify-between items-center py-3 border-b border-white/10 last:border-0">
                     <span className="text-white font-medium">{item.time}</span>
-                    <span className="font-semibold">{item.price}원</span>
+                    <div className="text-right">
+                      <span className="text-gray-600 line-through text-sm mr-2">{item.original}</span>
+                      <span className="font-bold text-[#00FF88]">{item.sale}원</span>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -486,64 +567,66 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Poster Gallery Section */}
-      <section id="posters" className="py-24 bg-[#111111]">
+      {/* Poster Gallery Section - 실제 포스터 iframe 미리보기 */}
+      <section id="posters" className="py-24 bg-[#111111] overflow-hidden">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 text-[#00FF88] text-sm mb-4">
+              <span className="w-2 h-2 bg-[#00FF88] rounded-full animate-pulse" />
+              지니24가 직접 만드는 홍보물
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               <span className="neon-text">포스터</span> 갤러리
             </h2>
-            <p className="text-gray-400">
-              군자 지니24의 다양한 홍보물을 확인하세요
-            </p>
+            <p className="text-gray-400 text-sm">실제 제작한 포스터들을 확인하세요</p>
           </div>
 
-          {/* 포스터 그리드 */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {[
-              { id: 1, title: '2차 프로모션', category: '이벤트', file: 'promo-2nd', emoji: '🎉' },
-              { id: 2, title: '겨울 이벤트', category: '이벤트', file: 'winter-event', emoji: '❄️' },
-              { id: 3, title: '4시간 무료체험', category: '체험권', file: 'free-trial', emoji: '🎁' },
-              { id: 4, title: '시설 안내', category: '안내', file: 'facility', emoji: '🏢' },
-              { id: 5, title: '가격표', category: '안내', file: 'price', emoji: '💰' },
-              { id: 6, title: '좌석 안내', category: '안내', file: 'seats', emoji: '🪑' },
-            ].map((poster) => (
-              <div
+          {/* 실제 포스터 미리보기 그리드 */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+            {posterSlides.map((poster) => (
+              <a
                 key={poster.id}
-                className="group relative bg-[#1A1A1A] border border-white/10 rounded-2xl overflow-hidden hover:border-[#00FF88]/50 transition-all duration-300"
+                href={poster.href}
+                className="group block"
               >
-                {/* 포스터 이미지 영역 */}
-                <div className="aspect-[3/4] bg-gradient-to-br from-[#222222] to-[#111111] flex items-center justify-center relative">
-                  <div className="text-center p-4">
-                    <div className="text-5xl mb-4">{poster.emoji}</div>
-                    <p className="text-sm text-gray-400 font-medium">{poster.title}</p>
-                    <p className="text-xs text-gray-600 mt-1">포스터 준비중</p>
-                  </div>
+                {/* 포스터 iframe 미리보기 */}
+                <div className="aspect-[3/4] rounded-xl overflow-hidden shadow-lg border border-white/10 relative bg-[#1A1A1A] group-hover:border-[#00FF88]/50 transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(0,255,136,0.2)]">
+                  {/* iframe으로 실제 포스터 미리보기 */}
+                  <iframe
+                    src={poster.href}
+                    className="w-[400%] h-[400%] origin-top-left scale-[0.25] pointer-events-none"
+                    style={{ border: 'none' }}
+                    loading="lazy"
+                    title={poster.title}
+                  />
+
                   {/* 호버 오버레이 */}
-                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <div className="flex gap-3">
-                      <button className="bg-[#00FF88] text-[#0A0A0A] px-4 py-2.5 rounded-lg text-sm font-bold hover:scale-105 transition-transform">
-                        JPG
-                      </button>
-                      <button className="bg-white/20 text-white px-4 py-2.5 rounded-lg text-sm font-bold hover:scale-105 transition-transform border border-white/30">
-                        PDF
-                      </button>
-                    </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                    <span className="bg-[#00FF88] text-[#0A0A0A] px-4 py-2 rounded-full text-xs font-bold">
+                      자세히 보기 →
+                    </span>
                   </div>
                 </div>
+
                 {/* 포스터 정보 */}
-                <div className="p-4 border-t border-white/5">
-                  <div className="text-xs text-[#00FF88] mb-1 font-medium">{poster.category}</div>
-                  <h4 className="font-semibold text-sm text-white">{poster.title}</h4>
+                <div className="mt-3 text-center">
+                  <div className="text-xs text-[#00FF88] mb-1">{poster.category}</div>
+                  <div className="text-sm font-medium text-white">{poster.title}</div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
 
-          {/* 포스터 추가 안내 */}
-          <div className="mt-8 text-center">
-            <p className="text-gray-500 text-sm">
-              포스터는 계속 업데이트됩니다. 필요한 홍보물이 있다면 요청해주세요!
+          {/* 포스터 모음 바로가기 버튼 */}
+          <div className="text-center">
+            <a
+              href="/posters"
+              className="inline-flex items-center gap-2 bg-[#00FF88] text-[#0A0A0A] px-8 py-4 rounded-full font-bold hover:shadow-[0_0_30px_rgba(0,255,136,0.5)] transition"
+            >
+              전체 포스터 모음 보기 →
+            </a>
+            <p className="text-gray-500 text-sm mt-4">
+              PDF/JPG 다운로드 가능 · 자유롭게 활용하세요
             </p>
           </div>
         </div>
@@ -620,6 +703,49 @@ export default function Home() {
               </a>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Blog Section */}
+      <section className="py-16 bg-[#111111]">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold mb-2">
+              <span className="neon-text">블로그</span> 소식
+            </h3>
+            <p className="text-gray-400 text-sm">
+              최신 소식과 이벤트를 블로그에서 확인하세요
+            </p>
+          </div>
+
+          <a
+            href="https://blog.naver.com/gunjastudycafe"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block bg-[#1A1A1A] border border-white/10 rounded-2xl p-6 hover:border-[#00FF88]/50 transition-all duration-300"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-[#03C75A] rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                  N
+                </div>
+                <div>
+                  <div className="font-bold text-white mb-1">군자 지니24 스터디카페</div>
+                  <div className="text-sm text-gray-400">네이버 블로그에서 최신 소식을 확인하세요</div>
+                </div>
+              </div>
+              <div className="text-[#00FF88] text-2xl group-hover:translate-x-1 transition-transform">→</div>
+            </div>
+
+            <div className="mt-4 pt-4 border-t border-white/5">
+              <div className="flex flex-wrap gap-2">
+                <span className="bg-[#00FF88]/10 text-[#00FF88] px-3 py-1 rounded-full text-xs">#프로모션</span>
+                <span className="bg-[#00FF88]/10 text-[#00FF88] px-3 py-1 rounded-full text-xs">#이벤트</span>
+                <span className="bg-[#00FF88]/10 text-[#00FF88] px-3 py-1 rounded-full text-xs">#시설안내</span>
+                <span className="bg-[#00FF88]/10 text-[#00FF88] px-3 py-1 rounded-full text-xs">#업데이트</span>
+              </div>
+            </div>
+          </a>
         </div>
       </section>
 
