@@ -77,20 +77,20 @@ export default function PostersPage() {
     <div className="min-h-screen bg-[#0A0A0A]" style={{ fontFamily: "'Pretendard', -apple-system, sans-serif" }}>
       {/* Header */}
       <div className="bg-gradient-to-br from-[#111111] to-[#0A0A0A] border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-4 py-8">
-          <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-[#00FF88] transition mb-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+          <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-[#00FF88] transition mb-4 sm:mb-6 text-sm sm:text-base">
             <span>←</span> 홈으로 돌아가기
           </Link>
 
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 text-[#00FF88] text-sm mb-4">
-              <span className="w-2 h-2 bg-[#00FF88] rounded-full animate-pulse" />
+            <div className="inline-flex items-center gap-2 text-[#00FF88] text-xs sm:text-sm mb-3 sm:mb-4">
+              <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-[#00FF88] rounded-full animate-pulse" />
               지니24가 직접 만드는 홍보물
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 sm:mb-3">
               <span className="text-[#00FF88]">포스터</span> 모음
             </h1>
-            <p className="text-gray-400">
+            <p className="text-gray-400 text-sm sm:text-base">
               총 <span className="text-white font-bold">26종</span>의 포스터 · PDF/JPEG 다운로드 가능
             </p>
           </div>
@@ -98,30 +98,30 @@ export default function PostersPage() {
       </div>
 
       {/* Content - 분류별 포스터 */}
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {allPosters.map((category, catIndex) => (
-          <div key={catIndex} className="mb-12">
+          <div key={catIndex} className="mb-8 sm:mb-10 md:mb-12">
             {/* 카테고리 헤더 */}
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
               <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+                className="w-8 sm:w-10 h-8 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center text-lg sm:text-xl"
                 style={{ background: `${category.categoryColor}20` }}
               >
                 {category.categoryIcon}
               </div>
               <div>
-                <h2 className="text-xl font-bold text-white">{category.category}</h2>
-                <p className="text-sm text-gray-500">{category.items.length}개 포스터 세트</p>
+                <h2 className="text-base sm:text-lg md:text-xl font-bold text-white">{category.category}</h2>
+                <p className="text-xs sm:text-sm text-gray-500">{category.items.length}개 포스터 세트</p>
               </div>
             </div>
 
             {/* 포스터 카드 그리드 */}
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {category.items.map((poster) => (
                 <Link key={poster.id} href={poster.href}>
-                  <div className="bg-[#1A1A1A] border border-white/10 rounded-2xl overflow-hidden hover:border-[#00FF88]/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,255,136,0.1)] group">
-                    {/* 포스터 미리보기 */}
-                    <div className="relative h-48 bg-[#111111] overflow-hidden">
+                  <div className="bg-[#1A1A1A] border border-white/10 rounded-xl sm:rounded-2xl overflow-hidden hover:border-[#00FF88]/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,255,136,0.1)] group">
+                    {/* 포스터 iframe 미리보기 */}
+                    <div className="relative aspect-[3/4] bg-[#1A1A1A] overflow-hidden">
                       <iframe
                         src={poster.href}
                         className="w-[300%] h-[300%] origin-top-left scale-[0.33] pointer-events-none"
@@ -131,14 +131,15 @@ export default function PostersPage() {
                       />
                       {/* 호버 오버레이 */}
                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span className="bg-[#00FF88] text-[#0A0A0A] px-6 py-3 rounded-full font-bold">
+                        <span className="bg-[#00FF88] text-[#0A0A0A] px-4 sm:px-6 py-2 sm:py-3 rounded-full font-bold text-xs sm:text-sm">
                           보러가기 →
                         </span>
                       </div>
+
                       {/* 배지 */}
                       {poster.badge && (
                         <span
-                          className="absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-bold text-white"
+                          className="absolute top-2 sm:top-3 right-2 sm:right-3 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold text-white z-10"
                           style={{ background: poster.badgeColor }}
                         >
                           {poster.badge}
@@ -147,19 +148,19 @@ export default function PostersPage() {
                     </div>
 
                     {/* 포스터 정보 */}
-                    <div className="p-5">
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className="font-bold text-white group-hover:text-[#00FF88] transition">
+                    <div className="p-3 sm:p-4 md:p-5">
+                      <div className="flex items-start justify-between mb-1 sm:mb-2">
+                        <h3 className="font-bold text-white text-sm sm:text-base group-hover:text-[#00FF88] transition">
                           {poster.title}
                         </h3>
                         <span
-                          className="text-xs px-2 py-1 rounded-full font-medium"
+                          className="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full font-medium flex-shrink-0 ml-2"
                           style={{ background: `${category.categoryColor}20`, color: category.categoryColor }}
                         >
                           {poster.count}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-400">{poster.description}</p>
+                      <p className="text-xs sm:text-sm text-gray-400">{poster.description}</p>
                     </div>
                   </div>
                 </Link>
@@ -169,11 +170,11 @@ export default function PostersPage() {
         ))}
 
         {/* 사용 안내 */}
-        <div className="bg-gradient-to-r from-[#00FF88]/10 to-transparent border border-[#00FF88]/30 rounded-2xl p-6 mt-8">
-          <div className="font-bold text-white mb-3 flex items-center gap-2">
+        <div className="bg-gradient-to-r from-[#00FF88]/10 to-transparent border border-[#00FF88]/30 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 mt-6 sm:mt-8">
+          <div className="font-bold text-white mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base">
             <span>💡</span> 사용 안내
           </div>
-          <div className="text-sm text-gray-400 leading-relaxed grid md:grid-cols-3 gap-4">
+          <div className="text-xs sm:text-sm text-gray-400 leading-relaxed grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
             <div className="flex items-start gap-2">
               <span className="text-[#00FF88]">✓</span>
               <span>모든 포스터는 <strong className="text-white">PDF, JPEG</strong>로 다운로드 가능</span>
@@ -191,13 +192,13 @@ export default function PostersPage() {
       </div>
 
       {/* Footer */}
-      <div className="text-center py-8 border-t border-white/5">
-        <div className="text-sm text-gray-500 mb-4">
+      <div className="text-center py-6 sm:py-8 border-t border-white/5">
+        <div className="text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">
           군자 지니24 스터디카페
         </div>
         <Link
           href="/"
-          className="inline-flex items-center gap-2 bg-[#00FF88] text-[#0A0A0A] px-6 py-3 rounded-full text-sm font-bold hover:shadow-[0_0_20px_rgba(0,255,136,0.5)] transition"
+          className="inline-flex items-center gap-2 bg-[#00FF88] text-[#0A0A0A] px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-bold hover:shadow-[0_0_20px_rgba(0,255,136,0.5)] transition"
         >
           🏠 홈으로
         </Link>

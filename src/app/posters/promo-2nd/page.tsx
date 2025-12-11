@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import html2canvas from 'html2canvas';
 
 // 가격 데이터 - 2차 이벤트 (정가 + 이벤트가)
@@ -28,6 +29,8 @@ export default function PriceTable2ndPromoPage() {
   const posterRef = useRef<HTMLDivElement | null>(null);
   const posterDarkRef = useRef<HTMLDivElement | null>(null);
   const deadlineRef = useRef<HTMLDivElement | null>(null);
+  const searchParams = useSearchParams();
+  const isPreview = searchParams.get('preview') === '1';
 
   const downloadPDF = () => {
     const element = posterRef.current;
@@ -190,6 +193,134 @@ export default function PriceTable2ndPromoPage() {
       alert('JPEG 저장에 실패했습니다.');
     }
   };
+
+  // Preview 모드: 첫 번째 포스터만 보여줌
+  if (isPreview) {
+    return (
+      <div style={{ background: '#FFFFFF' }}>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+        />
+        <div
+          style={{
+            width: '210mm',
+            height: '297mm',
+            background: '#FFFFFF',
+            padding: '12mm 14mm',
+            fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif",
+            color: '#191F28',
+            position: 'relative',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}
+        >
+          {/* Header Section */}
+          <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+            <div style={{
+              display: 'inline-block',
+              background: 'linear-gradient(135deg, #EF4444 0%, #F97316 100%)',
+              color: '#fff',
+              padding: '6px 16px',
+              borderRadius: '20px',
+              fontSize: '12px',
+              fontWeight: 700,
+              marginBottom: '12px',
+            }}>
+              특별 할인 프로모션
+            </div>
+            <h1 style={{
+              fontSize: '32px',
+              fontWeight: 800,
+              margin: '0 0 8px 0',
+              background: 'linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>
+              2차 오픈이벤트
+            </h1>
+            <p style={{ color: '#6B7684', fontSize: '13px', margin: 0 }}>
+              12월 8일 (월) ~ 12월 21일 (일)
+            </p>
+          </div>
+
+          {/* Price Section */}
+          <div style={{ display: 'flex', gap: '16px', flex: 1 }}>
+            <div style={{
+              flex: 1,
+              background: '#F8FAFC',
+              borderRadius: '20px',
+              padding: '20px 24px',
+              border: '1px solid #E5E8EB',
+            }}>
+              <div style={{ fontSize: '17px', fontWeight: 700, color: '#191F28', marginBottom: '16px' }}>
+                기간제 정액권
+              </div>
+              {priceData.unlimited.map((item, i) => (
+                <div key={i} style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '10px 0',
+                  borderBottom: i < priceData.unlimited.length - 1 ? '1px solid #E5E8EB' : 'none',
+                }}>
+                  <span style={{ fontSize: '14px', color: '#4E5968' }}>{item.name}</span>
+                  <span style={{ fontSize: '17px', fontWeight: 700, color: '#2563EB' }}>
+                    {formatPrice(item.price)}원
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div style={{
+              flex: 1,
+              background: '#F8FAFC',
+              borderRadius: '20px',
+              padding: '20px 24px',
+              border: '1px solid #E5E8EB',
+            }}>
+              <div style={{ fontSize: '17px', fontWeight: 700, color: '#191F28', marginBottom: '16px' }}>
+                시간 충전권
+              </div>
+              {priceData.hourly.map((item, i) => (
+                <div key={i} style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '10px 0',
+                  borderBottom: i < priceData.hourly.length - 1 ? '1px solid #E5E8EB' : 'none',
+                }}>
+                  <span style={{ fontSize: '14px', color: '#4E5968' }}>{item.name}</span>
+                  <span style={{ fontSize: '17px', fontWeight: 700, color: '#2563EB' }}>
+                    {formatPrice(item.price)}원
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div style={{
+            background: '#F8FAFC',
+            borderRadius: '16px',
+            padding: '18px 24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: '20px',
+          }}>
+            <div>
+              <div style={{ fontSize: '12px', color: '#8B95A1' }}>이벤트 마감</div>
+              <div style={{ fontSize: '32px', fontWeight: 800, color: '#2563EB' }}>12.21</div>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ fontSize: '14px', fontWeight: 600, color: '#191F28' }}>12월 8일 (월) ~ 12월 21일 (일)</div>
+              <div style={{ fontSize: '11px', color: '#8B95A1' }}>프로모션 가격은 이벤트 기간에만 적용</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ minHeight: '100vh', background: '#1a1a2e', padding: '40px 20px' }}>

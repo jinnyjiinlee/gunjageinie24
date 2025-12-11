@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import html2canvas from 'html2canvas';
 
 // 의견 반영 데이터
@@ -48,6 +49,8 @@ const designStyles: DesignStyle[] = [
 
 export default function FeedbackPosterPage() {
   const posterRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const searchParams = useSearchParams();
+  const isPreview = searchParams.get('preview') === '1';
 
   const downloadPDF = (index: number) => {
     const element = posterRefs.current[index];
@@ -334,6 +337,19 @@ export default function FeedbackPosterPage() {
       </div>
     );
   };
+
+  // Preview 모드: 첫 번째 포스터만 보여줌
+  if (isPreview) {
+    return (
+      <div style={{ background: designStyles[0].bgColor }}>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+        />
+        {renderPoster(designStyles[0], 0)}
+      </div>
+    );
+  }
 
   return (
     <div style={{ minHeight: '100vh', background: '#E5E7EB', padding: '40px 20px' }}>
