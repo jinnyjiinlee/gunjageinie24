@@ -113,7 +113,7 @@ export default function Home() {
       ctx.fillStyle = '#0A0A0A';
       ctx.font = 'bold 32px -apple-system, BlinkMacSystemFont, sans-serif';
       ctx.fillText('200시간 → +20시간 추가', 400, 265);
-      ctx.fillText('300시간 → +60시간 추가 🔥', 400, 310);
+      ctx.fillText('300시간 → +60시간 추가', 400, 310);
 
       // 안내 문구
       ctx.font = '22px -apple-system, BlinkMacSystemFont, sans-serif';
@@ -124,31 +124,78 @@ export default function Home() {
       ctx.fillStyle = 'rgba(10, 10, 10, 0.6)';
       ctx.fillText('네이버 톡톡으로 이 쿠폰을 보내주세요!', 400, 420);
 
-      // 이미지 다운로드
+      // 이미지를 data URL로 변환
       const dataUrl = canvas.toDataURL('image/png');
 
-      // 모바일 대응: Blob으로 변환 후 다운로드
-      const byteString = atob(dataUrl.split(',')[1]);
-      const mimeString = dataUrl.split(',')[0].split(':')[1].split(';')[0];
-      const ab = new ArrayBuffer(byteString.length);
-      const ia = new Uint8Array(ab);
-      for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-      }
-      const blob = new Blob([ab], { type: mimeString });
-      const blobUrl = URL.createObjectURL(blob);
+      // 모바일 체크
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-      const link = document.createElement('a');
-      link.href = blobUrl;
-      link.download = '지니24_충전권_쿠폰.png';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(blobUrl);
+      if (isMobile) {
+        // 모바일: 새 창에서 이미지 열기 (길게 눌러 저장 유도)
+        const newWindow = window.open('', '_blank');
+        if (newWindow) {
+          newWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <title>쿠폰 저장</title>
+              <style>
+                body {
+                  margin: 0;
+                  padding: 20px;
+                  background: #0A0A0A;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  min-height: 100vh;
+                  box-sizing: border-box;
+                }
+                img {
+                  max-width: 100%;
+                  height: auto;
+                  border-radius: 12px;
+                  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+                }
+                p {
+                  color: #00FF88;
+                  text-align: center;
+                  margin-top: 20px;
+                  font-size: 18px;
+                  font-weight: bold;
+                  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                }
+                .sub {
+                  color: #888;
+                  font-size: 14px;
+                  font-weight: normal;
+                  margin-top: 8px;
+                }
+              </style>
+            </head>
+            <body>
+              <img src="${dataUrl}" alt="충전권 보너스 쿠폰" />
+              <p>이미지를 길게 눌러서 저장하세요!</p>
+              <p class="sub">저장 후 네이버 톡톡으로 보내주세요</p>
+            </body>
+            </html>
+          `);
+          newWindow.document.close();
+        } else {
+          alert('팝업이 차단되었습니다. 팝업을 허용해주세요.');
+        }
+      } else {
+        // PC: 기존 다운로드 방식
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = '지니24_충전권_쿠폰.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
 
     } catch (error) {
       console.error('쿠폰 다운로드 실패:', error);
-      // 실패 시 쿠폰 이미지를 길게 누르라고 안내
       alert('쿠폰 이미지를 길게 눌러서 저장해주세요!');
     }
   };
