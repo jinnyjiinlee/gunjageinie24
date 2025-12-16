@@ -15,6 +15,8 @@ import PosterGallerySection from '@/components/sections/PosterGallerySection';
 import LocationSection from '@/components/sections/LocationSection';
 import BlogSection from '@/components/sections/BlogSection';
 import FeedbackSection from '@/components/sections/FeedbackSection';
+import TargetSection from '@/components/sections/TargetSection';
+import ParticleBackground from '@/components/ui/ParticleBackground';
 
 export default function Home() {
   const [daysLeft, setDaysLeft] = useState(0);
@@ -36,9 +38,11 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white">
+    <div className="min-h-screen bg-[#0A0A0A] text-white relative">
+      <ParticleBackground />
       <Navigation />
       <HeroSection daysLeft={daysLeft} />
+      <TargetSection />
       <StorySection />
       <AboutSection />
       <SeatsSection />

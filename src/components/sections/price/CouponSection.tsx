@@ -37,11 +37,16 @@ export default function CouponSection() {
 
 function CouponHeader() {
   return (
-    <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
-      <span className="text-xl sm:text-2xl">🎁</span>
-      <h3 className="text-base sm:text-xl md:text-2xl font-bold text-[#FFD700]">
-        홈페이지 방문자 전용 혜택
-      </h3>
+    <div className="text-center mb-3 sm:mb-4">
+      <div className="flex items-center justify-center gap-2 mb-2">
+        <span className="text-xl sm:text-2xl">🎁</span>
+        <h3 className="text-base sm:text-xl md:text-2xl font-bold text-[#FFD700]">
+          홈페이지 방문자 전용 혜택
+        </h3>
+      </div>
+      <div className="inline-block bg-[#F04452] text-white text-[10px] sm:text-xs px-3 py-1 rounded-full font-bold animate-pulse">
+        선착순 10명 한정!
+      </div>
     </div>
   );
 }

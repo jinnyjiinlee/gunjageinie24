@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 const menuItems = [
   { href: '#story', label: '스토리' },
@@ -15,15 +16,18 @@ export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0A0A0A]/95 backdrop-blur-md border-b border-white/10">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0A0A0A]/95 backdrop-blur-md border-b border-white/10 dark:bg-[#0A0A0A]/95 dark:border-white/10">
       <div className="max-w-6xl mx-auto px-4 py-3 sm:py-4">
         <div className="flex items-center justify-between">
           <Logo />
-          <DesktopMenu />
-          <MobileMenuButton
-            isOpen={isMenuOpen}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          />
+          <div className="flex items-center gap-3 sm:gap-4">
+            <DesktopMenu />
+            <ThemeToggle />
+            <MobileMenuButton
+              isOpen={isMenuOpen}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            />
+          </div>
         </div>
         {isMenuOpen && <MobileMenu onClose={() => setIsMenuOpen(false)} />}
       </div>

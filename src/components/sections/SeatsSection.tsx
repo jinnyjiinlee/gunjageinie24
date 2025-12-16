@@ -1,110 +1,183 @@
+'use client';
+
+import { useState } from 'react';
+
 const seats = [
   {
+    id: 'study',
     zone: 'STUDY ZONE',
     title: '학습존',
+    subtitle: '조용히 집중하고 싶은 분',
     image: '/images/study-zone.jpg',
-    descShort: '전 좌석 서울대 시디즈 의자, 100cm 이상 넓은 책상',
-    description: '가장 오래 머무는 공간이기에 의자와 책상 품질을 최우선으로 고려했습니다. 전 좌석 서울대 시디즈 의자, 100cm 이상 넓은 책상으로 장시간 학습에도 편안한 환경을 제공합니다.',
-    features: ['서울대 시디즈 의자', '100cm+ 넓은 책상', '미세 조절된 조명'],
+    description: '전 좌석 서울대 시디즈 의자, 100cm 이상 넓은 책상으로 장시간 학습에도 편안합니다.',
+    features: ['서울대 시디즈 의자', '100cm+ 넓은 책상', '미세 조절 조명'],
+    color: 'amber',
+    gradient: 'from-amber-500 to-orange-500',
   },
   {
+    id: 'laptop',
     zone: 'LAPTOP ZONE',
     title: '노트북존',
+    subtitle: '자유롭게 타이핑하고 싶은 분',
     image: '/images/laptop-zone.jpg',
-    descShort: '직장인, 프리랜서를 위한 장시간 작업 구역',
-    description: '직장인, 프리랜서를 위한 장시간 작업 구역입니다. 키보드 소리가 불편할 수 있어 학습 공간과 분리했습니다. 퇴근 후 보고서, PPT, 코딩 작업에 최적화되어 있습니다.',
-    features: ['창가 좌석 배치', '넉넉한 전원 위치', '키보드 사용 OK'],
+    description: '키보드 소리 OK! 키스킨 없이 자유롭게 작업하세요. 퇴근 후 코딩, PPT 작업에 최적화.',
+    features: ['키스킨 NO', '넉넉한 전원', '키보드 소리 OK'],
+    color: 'blue',
+    gradient: 'from-blue-500 to-cyan-500',
   },
   {
+    id: 'monitor',
     zone: 'MONITOR ZONE',
     title: '모니터존',
+    subtitle: '넓은 화면이 필요한 분',
     image: '/images/monitor-zone.jpg',
-    descShort: '24인치급 모니터 제공, 코딩/디자인 최적화',
-    description: '24인치급 모니터가 제공되는 좌석입니다. 문서 작업, 코딩, 디자인 작업처럼 모니터 효율이 중요한 분들이 선호합니다. 사이드 프로젝트, 포트폴리오 제작에 최적화되어 있습니다.',
-    features: ['24인치 모니터 제공', '기계식 키보드 사용 가능', '개발/디자인 작업 최적화'],
+    description: '32인치 대형 모니터 제공. 문서 작업, 코딩, 디자인 작업에 효율적인 듀얼 환경.',
+    features: ['32인치 모니터', '기계식 키보드 OK', '듀얼 작업 최적화'],
+    color: 'purple',
+    gradient: 'from-purple-500 to-pink-500',
   },
   {
+    id: 'beanbag',
     zone: 'BEANBAG ZONE',
     title: '빈백존',
+    subtitle: '잠시 휴식이 필요한 분',
     image: '/images/beanbag-zone.jpg',
-    descShort: '노트북존 내 위치한 편안한 휴식 공간',
-    description: '노트북존 안에 위치한 편안한 휴식 공간입니다. 집중력을 오래 유지하려면 짧은 휴식이 필수입니다. 부담 없이 잠시 쉬거나 아이디어를 정리하기 좋은 공간입니다.',
-    features: ['편안한 빈백 4개', '잠시 눈 감고 휴식', '노트북존 내 위치'],
+    description: '노트북존 내 위치한 휴식 공간. 집중하다 지칠 때 잠시 눈 감고 쉬어가세요.',
+    features: ['편안한 빈백', '노트북존 내 위치', '짧은 휴식 최적화'],
+    color: 'green',
+    gradient: 'from-[#00FF88] to-emerald-500',
   },
 ];
 
 export default function SeatsSection() {
+  const [activeTab, setActiveTab] = useState(seats[0].id);
+  const activeSeat = seats.find(s => s.id === activeTab) || seats[0];
+
   return (
-    <section id="seats" className="py-10 sm:py-16 md:py-24 bg-[#0A0A0A]">
+    <section id="seats" className="py-12 sm:py-20 md:py-28 bg-[#0A0A0A]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <SectionHeader />
-        <SeatsList />
+        {/* Header */}
+        <div className="text-center mb-10 sm:mb-16">
+          <p className="text-[#00FF88] text-xs sm:text-sm font-medium mb-2 tracking-wider">
+            SEAT TYPES
+          </p>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
+            어떤 <span className="text-[#00FF88]">좌석</span>이 있나요?
+          </h2>
+          <p className="text-gray-400 text-sm sm:text-base">
+            목적에 맞는 최적의 자리를 골라보세요
+          </p>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="flex justify-center mb-8 sm:mb-12">
+          <div className="grid grid-cols-4 gap-2 sm:gap-3 w-full max-w-2xl">
+            {seats.map((seat) => (
+              <button
+                key={seat.id}
+                onClick={() => setActiveTab(seat.id)}
+                className={`relative flex flex-col items-center gap-1 sm:gap-2 px-2 sm:px-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-center transition-all ${
+                  activeTab === seat.id
+                    ? 'bg-[#111111] border-2 border-[#00FF88]'
+                    : 'bg-[#111111]/50 border border-white/10 hover:border-white/30'
+                }`}
+              >
+                <span className="text-lg sm:text-2xl">
+                  {seat.id === 'study' && '✍️'}
+                  {seat.id === 'laptop' && '💻'}
+                  {seat.id === 'monitor' && '🖥️'}
+                  {seat.id === 'beanbag' && '🛋️'}
+                </span>
+                <span className={`text-[10px] sm:text-sm font-medium ${activeTab === seat.id ? 'text-[#00FF88]' : 'text-gray-400'}`}>
+                  {seat.title}
+                </span>
+                {activeTab === seat.id && (
+                  <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#00FF88] rounded-full" />
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Active Seat Display */}
+        <div className="relative">
+          {/* Background glow */}
+          <div className={`absolute inset-0 bg-gradient-to-br ${activeSeat.gradient} opacity-10 blur-3xl rounded-full`} />
+
+          <div className="relative bg-[#111111] border border-white/10 rounded-3xl overflow-hidden">
+            <div className="grid md:grid-cols-2">
+              {/* Image */}
+              <div className="relative min-h-[200px] sm:min-h-[300px] md:min-h-[400px] overflow-hidden">
+                <img
+                  src={activeSeat.image}
+                  alt={activeSeat.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#111111]" />
+
+                {/* Zone badge */}
+                <div className="absolute top-4 left-4 sm:top-6 sm:left-6">
+                  <div className={`inline-flex items-center gap-2 bg-gradient-to-r ${activeSeat.gradient} px-3 py-1.5 sm:px-4 sm:py-2 rounded-full`}>
+                    <span className="text-white text-xs sm:text-sm font-bold">{activeSeat.zone}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-center">
+                <p className="text-gray-400 text-sm sm:text-base mb-1 sm:mb-2">
+                  {activeSeat.subtitle}
+                </p>
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">
+                  {activeSeat.title}
+                </h3>
+                <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8">
+                  {activeSeat.description}
+                </p>
+
+                {/* Features */}
+                <div className="space-y-2 sm:space-y-3">
+                  {activeSeat.features.map((feature, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-3 bg-[#0A0A0A] rounded-xl px-4 py-3 border border-white/5"
+                    >
+                      <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${activeSeat.gradient} flex items-center justify-center`}>
+                        <span className="text-white text-sm">✓</span>
+                      </div>
+                      <span className="text-white text-sm sm:text-base">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick View - All seats */}
+        <div className="mt-8 sm:mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          {seats.map((seat) => (
+            <button
+              key={seat.id}
+              onClick={() => setActiveTab(seat.id)}
+              className={`relative overflow-hidden rounded-xl sm:rounded-2xl aspect-[4/3] group ${
+                activeTab === seat.id ? 'ring-2 ring-[#00FF88]' : ''
+              }`}
+            >
+              <img
+                src={seat.image}
+                alt={seat.title}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 right-2 sm:right-3">
+                <p className="text-white font-bold text-xs sm:text-sm">{seat.title}</p>
+                <p className="text-gray-300 text-[10px] sm:text-xs truncate">{seat.subtitle}</p>
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
     </section>
-  );
-}
-
-function SectionHeader() {
-  return (
-    <div className="text-center mb-6 sm:mb-12 md:mb-16">
-      <h2 className="text-xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-4">
-        어떤 <span className="neon-text">좌석</span>이 있나요?
-      </h2>
-      <p className="text-gray-400 text-xs sm:text-base">목적에 맞는 최적의 자리를 골라보세요</p>
-    </div>
-  );
-}
-
-function SeatsList() {
-  return (
-    <div className="space-y-3 sm:space-y-5 md:space-y-6">
-      {seats.map((seat, index) => (
-        <SeatCard key={index} seat={seat} isReversed={index % 2 === 1} />
-      ))}
-    </div>
-  );
-}
-
-function SeatCard({ seat, isReversed }: { seat: typeof seats[0]; isReversed: boolean }) {
-  return (
-    <div className="bg-[#1A1A1A] border border-white/10 rounded-xl sm:rounded-3xl overflow-hidden hover:border-[#00FF88]/30 transition group">
-      <div className="grid md:grid-cols-2">
-        <SeatImage seat={seat} isReversed={isReversed} />
-        <SeatInfo seat={seat} isReversed={isReversed} />
-      </div>
-    </div>
-  );
-}
-
-function SeatImage({ seat, isReversed }: { seat: typeof seats[0]; isReversed: boolean }) {
-  return (
-    <div className={`relative min-h-[160px] sm:min-h-[250px] md:min-h-[400px] overflow-hidden ${isReversed ? 'md:order-2' : ''}`}>
-      <img
-        src={seat.image}
-        alt={seat.title}
-        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-[#1A1A1A]/50" />
-    </div>
-  );
-}
-
-function SeatInfo({ seat, isReversed }: { seat: typeof seats[0]; isReversed: boolean }) {
-  return (
-    <div className={`p-4 sm:p-6 md:p-8 lg:p-12 ${isReversed ? 'md:order-1' : ''}`}>
-      <div className="text-[10px] sm:text-sm text-[#00FF88] font-medium mb-0.5 sm:mb-2">{seat.zone}</div>
-      <h3 className="text-base sm:text-xl md:text-2xl font-bold mb-1.5 sm:mb-3 md:mb-4">{seat.title}</h3>
-      <p className="text-gray-400 text-[11px] sm:text-sm md:text-base mb-3 sm:mb-5 md:mb-6 leading-relaxed">
-        <span className="sm:hidden">{seat.descShort}</span>
-        <span className="hidden sm:inline">{seat.description}</span>
-      </p>
-      <ul className="flex flex-wrap gap-1.5 sm:block sm:space-y-2 text-[10px] sm:text-sm">
-        {seat.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-1 sm:gap-2 text-gray-300 bg-white/5 sm:bg-transparent px-2 py-1 sm:p-0 rounded-full sm:rounded-none">
-            <span className="text-[#00FF88]">✓</span> {feature}
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }

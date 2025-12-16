@@ -45,26 +45,35 @@ function drawCouponText(ctx: CanvasRenderingContext2D) {
   ctx.textAlign = 'center';
 
   ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, sans-serif';
-  ctx.fillText('군자역 지니24 스터디카페', 400, 110);
+  ctx.fillText('군자역 지니24 스터디카페', 400, 100);
 
   ctx.font = 'bold 52px -apple-system, BlinkMacSystemFont, sans-serif';
-  ctx.fillText('충전권 보너스 쿠폰', 400, 180);
+  ctx.fillText('충전권 보너스 쿠폰', 400, 165);
+
+  // 선착순 10명 뱃지
+  ctx.fillStyle = '#F04452';
+  ctx.beginPath();
+  ctx.roundRect(300, 180, 200, 36, 18);
+  ctx.fill();
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = 'bold 20px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.fillText('선착순 10명 한정!', 400, 205);
 
   ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
-  ctx.fillRect(150, 210, 500, 120);
+  ctx.fillRect(150, 230, 500, 120);
 
   ctx.fillStyle = '#0A0A0A';
   ctx.font = 'bold 32px -apple-system, BlinkMacSystemFont, sans-serif';
-  ctx.fillText('200시간 → +20시간 추가', 400, 265);
-  ctx.fillText('300시간 → +60시간 추가', 400, 310);
+  ctx.fillText('200시간 → +20시간 추가', 400, 280);
+  ctx.fillText('300시간 → +60시간 추가', 400, 325);
 
   ctx.font = '22px -apple-system, BlinkMacSystemFont, sans-serif';
   ctx.fillStyle = 'rgba(10, 10, 10, 0.8)';
-  ctx.fillText('홈페이지 방문자 한정 혜택', 400, 380);
+  ctx.fillText('홈페이지 방문자 한정 혜택', 400, 395);
 
   ctx.font = '18px -apple-system, BlinkMacSystemFont, sans-serif';
   ctx.fillStyle = 'rgba(10, 10, 10, 0.6)';
-  ctx.fillText('네이버 톡톡으로 이 쿠폰을 보내주세요!', 400, 420);
+  ctx.fillText('네이버 톡톡으로 이 쿠폰을 보내주세요!', 400, 430);
 }
 
 export function isMobileDevice(): boolean {

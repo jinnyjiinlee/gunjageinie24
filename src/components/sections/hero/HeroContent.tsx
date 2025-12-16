@@ -1,6 +1,8 @@
 'use client';
 
 import { heroPhotos } from '@/data/posters';
+import TypingText from '@/components/ui/TypingText';
+import TiltCard from '@/components/ui/TiltCard';
 
 interface HeroContentProps {
   daysLeft: number;
@@ -11,7 +13,6 @@ export default function HeroContent({ daysLeft }: HeroContentProps) {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-16 md:py-20 relative z-10 text-center">
       <PromoBanner daysLeft={daysLeft} />
       <HeroTitle />
-      <HeroSubtitle />
       <HeroCTAButtons />
       <FreeTrialCard />
       <PhotoGallery />
@@ -36,23 +37,22 @@ function PromoBanner({ daysLeft }: { daysLeft: number }) {
 
 function HeroTitle() {
   return (
-    <h1 className="font-bold leading-tight mb-3 sm:mb-6 md:mb-8">
-      <span className="text-white text-xl sm:text-4xl md:text-5xl lg:text-6xl block mb-1 sm:mb-2">
-        집중이 필요한 당신을 위한
+    <h1 className="font-bold leading-tight mb-6 sm:mb-10 md:mb-12">
+      <span className="text-white text-lg sm:text-3xl md:text-4xl lg:text-5xl block mb-3 sm:mb-5 font-bold">
+        <TypingText
+          text='"직장인은 노트북존, 학생은 학습존"'
+          speed={60}
+          delay={500}
+          cursor={false}
+        />
       </span>
-      <span className="neon-text text-3xl sm:text-5xl md:text-6xl lg:text-7xl">몰입의 공간</span>
+      <span className="neon-text text-3xl sm:text-5xl md:text-6xl lg:text-7xl animate-text-glow">
+        몰입의 공간
+      </span>
     </h1>
   );
 }
 
-function HeroSubtitle() {
-  return (
-    <p className="text-sm sm:text-lg md:text-xl text-gray-400 mb-6 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
-      <span className="hidden sm:inline">퇴근 후에도 집중할 수 있는 공간을 찾다가<br /></span>
-      <span className="text-white font-medium">직접 만들었습니다</span>
-    </p>
-  );
-}
 
 function HeroCTAButtons() {
   return (
@@ -78,17 +78,19 @@ function HeroCTAButtons() {
 
 function FreeTrialCard() {
   return (
-    <a
-      href="https://map.naver.com/p/entry/place/2024921054?lng=127.0807503&lat=37.5589534&placePath=/booking"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-block bg-[#111111]/80 backdrop-blur-md border border-[#00FF88]/40 px-5 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl neon-border animate-float hover:border-[#00FF88] transition-all cursor-pointer group"
-    >
-      <div className="text-[10px] sm:text-xs text-gray-400 mb-0.5">처음 오시는 분</div>
-      <div className="text-base sm:text-xl font-bold text-[#00FF88] group-hover:scale-105 transition-transform">
-        4시간 무료 체험
-      </div>
-    </a>
+    <TiltCard className="inline-block" tiltAmount={15}>
+      <a
+        href="https://map.naver.com/p/entry/place/2024921054?lng=127.0807503&lat=37.5589534&placePath=/booking"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block bg-[#111111]/80 backdrop-blur-md border border-[#00FF88]/40 px-5 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl neon-border animate-float hover:border-[#00FF88] transition-all cursor-pointer group"
+      >
+        <div className="text-[10px] sm:text-xs text-gray-400 mb-0.5">처음 오시는 분</div>
+        <div className="text-base sm:text-xl font-bold text-[#00FF88] group-hover:scale-105 transition-transform">
+          4시간 무료 체험
+        </div>
+      </a>
+    </TiltCard>
   );
 }
 
