@@ -1,0 +1,20 @@
+# robots.txt for 군자역 지니24 스터디카페
+
+User-agent: *
+Allow: /
+
+# 크롤링 제외할 페이지
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Sitemap 위치
+Sitemap: https://gunjageinie24.vercel.app/sitemap.xml
+
+# 네이버 검색 로봇
+User-agent: Yeti
+Allow: /
+
+# 구글 검색 로봇
+User-agent: Googlebot
+Allow: /
