@@ -37,19 +37,24 @@ function PromoBanner({ daysLeft }: { daysLeft: number }) {
 
 function HeroTitle() {
   return (
-    <h1 className="font-bold leading-tight mb-6 sm:mb-10 md:mb-12">
-      <span className="text-white text-lg sm:text-3xl md:text-4xl lg:text-5xl block mb-3 sm:mb-5 font-bold">
-        <TypingText
-          text='"직장인은 노트북존, 학생은 학습존"'
-          speed={60}
-          delay={500}
-          cursor={false}
-        />
-      </span>
-      <span className="neon-text text-3xl sm:text-5xl md:text-6xl lg:text-7xl animate-text-glow">
-        몰입의 공간
-      </span>
-    </h1>
+    <div className="mb-6 sm:mb-10 md:mb-12">
+      <h1 className="font-bold leading-tight mb-3 sm:mb-4">
+        <span className="text-white text-lg sm:text-3xl md:text-4xl lg:text-5xl block mb-3 sm:mb-5 font-bold">
+          <TypingText
+            text='"직장인은 노트북존, 학생은 학습존"'
+            speed={60}
+            delay={500}
+            cursor={false}
+          />
+        </span>
+        <span className="neon-text text-3xl sm:text-5xl md:text-6xl lg:text-7xl animate-text-glow">
+          몰입의 공간
+        </span>
+      </h1>
+      <p className="text-gray-400 text-xs sm:text-base mt-3 sm:mt-5">
+        군자역 · 세종대입구 · 어린이대공원 인근 프리미엄 스터디카페
+      </p>
+    </div>
   );
 }
 

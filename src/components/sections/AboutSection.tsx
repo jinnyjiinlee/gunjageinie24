@@ -144,8 +144,11 @@ export default function AboutSection() {
 
         {/* Bottom Note */}
         <div className="mt-10 sm:mt-16 text-center">
-          <p className="text-gray-500 text-xs sm:text-sm">
+          <p className="text-gray-500 text-xs sm:text-sm mb-2">
             💡 성인 이용자가 많아 <span className="text-white">더 성숙하고 집중된 분위기</span>에서 공부할 수 있어요
+          </p>
+          <p className="text-gray-600 text-[10px] sm:text-xs">
+            군자역 스터디카페 · 세종대 스터디카페 · 건대입구 인근 · 광진구 1인 스터디카페
           </p>
         </div>
       </div>

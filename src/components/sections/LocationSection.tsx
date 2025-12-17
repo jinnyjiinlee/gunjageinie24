@@ -16,7 +16,12 @@ function SectionHeader() {
       <h2 className="text-xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-4">
         <span className="neon-text">어디에 있나요?</span>
       </h2>
-      <p className="text-gray-400 text-xs sm:text-base">군자역 5번 출구 도보 3분</p>
+      <p className="text-gray-400 text-xs sm:text-base">
+        군자역 5번 출구 도보 3분 · 세종대입구역 도보 5분
+      </p>
+      <p className="text-gray-500 text-[10px] sm:text-sm mt-1">
+        군자 스터디카페 · 세종대 스터디카페 · 광진구 24시간 독서실
+      </p>
     </div>
   );
 }
