@@ -10,8 +10,8 @@ const notoSansKR = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: "군자역 지니24 스터디카페 | 24시간 프리미엄 스터디카페",
-  description: "군자역 도보 3분, 24시간 운영. 서울대 시디즈 의자, 100cm 넓은 책상, 모니터존, 빈백존 완비. 성인 자기계발러와 학생 모두를 위한 프리미엄 스터디카페.",
+  title: "군자역 군자 스터디카페 지니24 | 24시간 운영",
+  description: "군자역 도보 3분, 세종대입구 도보 5분. 서울대 시디즈 의자, 100cm 넓은 책상, 모니터존, 빈백존 완비. 성인 자기계발러와 학생 모두를 위한 24시간 프리미엄 스터디카페.",
   keywords: [
     // 브랜드 키워드
     "지니24", "군자 지니", "군자지니", "지니 스터디카페", "군자역 지니",
@@ -41,16 +41,16 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "군자역 지니24 스터디카페",
-    description: "24시간 프리미엄 스터디카페. 군자역 도보 3분.",
+    title: "군자역 군자 스터디카페 지니24",
+    description: "24시간 운영. 군자역 도보 3분, 세종대입구 도보 5분.",
     type: "website",
     locale: "ko_KR",
-    siteName: "군자역 지니24 스터디카페",
+    siteName: "군자역 군자 스터디카페 지니24",
   },
   twitter: {
     card: 'summary_large_image',
-    title: "군자역 지니24 스터디카페",
-    description: "24시간 프리미엄 스터디카페. 군자역 도보 3분.",
+    title: "군자역 군자 스터디카페 지니24",
+    description: "24시간 운영. 군자역 도보 3분, 세종대입구 도보 5분.",
   },
 };
 

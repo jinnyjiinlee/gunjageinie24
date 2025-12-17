@@ -41,9 +41,10 @@ export default function Home() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "군자역 지니24 스터디카페",
+    "name": "군자역 군자 스터디카페 지니24",
+    "alternateName": "지니24",
     "image": "https://gunjageinie24.vercel.app/og-image.jpg",
-    "description": "군자역 도보 3분, 24시간 운영. 서울대 시디즈 의자, 100cm 넓은 책상, 모니터존, 빈백존 완비. 성인 자기계발러와 학생 모두를 위한 프리미엄 스터디카페.",
+    "description": "군자역 도보 3분, 세종대입구 도보 5분. 서울대 시디즈 의자, 100cm 넓은 책상, 모니터존, 빈백존 완비. 성인 자기계발러와 학생 모두를 위한 24시간 프리미엄 스터디카페.",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "능동로 330 5층",
